@@ -1,0 +1,246 @@
+.reservation-section {
+   position: relative;
+   margin-top: 5rem;
+   padding: 4rem 0;
+   min-height: calc(100vh - 5rem);
+}
+
+.menu-title {
+  text-align: center;
+   font-size: 3rem;
+   color: #f97316;
+   margin-bottom: 20px;
+}
+
+.section-text {
+   margin: 10px auto;
+   font-size: 1.2rem;
+   line-height: 1.6;
+   color: #eeee;
+   text-align: center;
+}
+
+.mesa-list {
+  padding: 4rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;              /* separación entre mesas */
+  justify-content: center; /* centra el grid horizontalmente */
+}
+
+
+.mesa-list li {
+   background-color: #1F2937;
+   border: 1px #303d4e solid;
+   border-radius: 10px;
+   padding: 2rem;
+   display: flex;
+   flex-direction: column;
+   gap: 2rem;
+   position: relative; 
+   overflow: hidden; 
+}
+
+/* Variante encima */
+.reserva-info.top {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: white;
+  white-space: nowrap;
+}
+
+/* Variante lateral derecha */
+.reserva-info.right {
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  transform: rotate(-90deg) translateY(-50%);
+  transform-origin: right center;
+  background-color: rgba(249, 115, 22, 0.9);
+  padding: 6px 12px;
+  border-radius: 6px 6px 0 0;
+  font-size: 12px;
+  color: white;
+  white-space: nowrap;
+}
+
+.mesa-list h3 {
+   font-weight: 500;
+}
+
+.mesa-list p {
+   text-align: center;
+   font-size: 1.1rem;
+}
+
+/* Mesa base (escritorio) */
+.mesa-item {
+  width: 240px;  /* un poco más pequeña */
+  height: 220px;
+  border-radius: 50%;
+  background: url('/public/assets/mesa_madera.jpeg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3),
+              0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.mesa-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.05) 100%);
+  z-index: 0;
+}
+
+.mesa-item * {
+  position: relative;
+  z-index: 1;
+}
+
+.mesa-item:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Texto en mesa */
+.mesa-item h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.estado-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Reservas dentro de la mesa */
+.info-reservas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  margin-top: 5px;
+}
+
+.reserva-info-item {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 11px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+
+.reserva-info {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: white;
+  text-align: left;
+  max-width: 100%;
+}
+
+.modal-overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.6);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+}
+
+/* Contenedor de múltiples reservas */
+.info-reservas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 4px;
+  margin-top: auto;
+}
+
+/* Cada reserva como una cajita */
+.reserva-info-item {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.error-mensaje {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+
+@media screen and (min-width: 343px) and (max-width: 740px){
+  .menu-title {
+    font-size: 2rem;
+  }
+
+  /* Mesas más compactas en móviles */
+  .mesa-item {
+    width: 200px;      /* antes 160px */
+    height: 200px;     /* antes 150px */
+  }
+
+  /* Nombre de la mesa */
+  .mesa-item h3 {
+    font-size: 0.8rem; 
+    line-height: 1rem; /* Evita que se corte */
+  }
+
+  /* Estado (Disponible / Ocupada) */
+  .estado-label {
+    font-size: 0.7rem;
+    line-height: 0.9rem;
+  }
+
+  /* Reservas dentro de la mesa */
+  .reserva-info-item {
+    font-size: 9px; /* Más pequeño */
+    padding: 1px 2px;
+    line-height: 0.9rem;
+    background-color: rgba(0, 0, 0, 0.75); /* Más opaco para legibilidad */
+  }
+
+  /* Grid más flexible */
+  .mesa-list {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+    justify-content: center;
+  }
+}
+
+
+
+  
+
