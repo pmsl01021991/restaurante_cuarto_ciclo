@@ -4,6 +4,12 @@ Aplicación web para gestionar reservas de un restaurante. Incluye funcionalidad
 
 ---
 
+## 🌐 Demo en Línea
+
+Puedes visualizar la aplicación funcionando desde cualquier dispositivo gracias al despliegue en **Vercel**:
+
+🔗 **URL del Proyecto:** https://restaurante-cuarto-ciclo.vercel.app/
+
 ## 📌 Objetivos del Proyecto
 
 - Facilitar la gestión de reservas y mesas.
