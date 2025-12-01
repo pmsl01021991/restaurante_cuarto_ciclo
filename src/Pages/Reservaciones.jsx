@@ -7,12 +7,12 @@ import '../Styles/Comensales.css';
 import '../Styles/NumeroCliente.css';
 import '../Styles/MesasReservaciones.css';
 
-// 🔥 Importamos Firestore
+
 import { 
   collection, getDocs, addDoc, deleteDoc,
   query, where, doc 
 } from "firebase/firestore";
-import { db } from "../firebase";  // <--- Tu archivo firebase.js
+import { db } from "../firebase"; 
 
 function getUserIdentifier(user) {
   if (!user) return null;
@@ -108,7 +108,7 @@ const Reservaciones = () => {
 
 
   // -------------------------
-  // 🔥 Ver mesas ocupadas
+  //  Ver mesas ocupadas
   // -------------------------
   const actualizarEstadoMesas = (
     reservas,
@@ -134,14 +134,14 @@ const Reservaciones = () => {
 
 
   // -------------------------
-  // 🔥 Confirmar reserva → Firestore
+  //  Confirmar reserva → Firestore
   // -------------------------
   const confirmarReserva = async () => {
     if (!numero.trim()) return alert("Ingresa tu número");
 
     const fechaStr = fechaSeleccionada?.toISOString().split("T")[0];
 
-    // 🔥 Verificar conflicto
+    //  Verificar conflicto
     const conflicto = reservasHechas.some(
       (r) =>
         r.mesa === mesaSeleccionada.nombre &&
@@ -174,7 +174,7 @@ const Reservaciones = () => {
     actualizarEstadoMesas(nuevas);
     mostrarToast("✅ Reservación confirmada.");
 
-    // 🔥 Borrar platos seleccionados en Firestore
+    //  Borrar platos seleccionados en Firestore
     for (const p of platosSeleccionados) {
       await deleteDoc(doc(db, "platosSeleccionados", p.id));
     }
@@ -199,9 +199,6 @@ const Reservaciones = () => {
   };
 
 
-  // -------------------------------------------------------------------
-  // -------------------------  JSX UI  --------------------------------
-  // -------------------------------------------------------------------
 
   return (
     <>

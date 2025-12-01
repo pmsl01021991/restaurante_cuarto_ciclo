@@ -25,7 +25,7 @@ const ReservacionesHechas = () => {
   const [reservasDelDia, setReservasDelDia] = useState([]);
   const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
 
-  // 🔹 Cargar reservas desde Firestore
+  //  Cargar reservas desde Firestore
   const cargarReservas = async () => {
     const querySnapshot = await getDocs(collection(db, "reservas"));
     const reservas = querySnapshot.docs.map(doc => ({
@@ -52,7 +52,7 @@ const ReservacionesHechas = () => {
     cargarReservas();
   }, []);
 
-  // 🔹 Cuando seleccionas un día en calendario
+  //  Cuando seleccionas un día en calendario
   const handleSelectSlot = ({ start }) => {
     const fecha = moment(start).format('YYYY-MM-DD');
 

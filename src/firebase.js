@@ -1,8 +1,7 @@
-// Importa firebase
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-// Tu configuración (la que pegaste, está PERFECTA)
+
 const firebaseConfig = {
   apiKey: "AIzaSyATaYQATVbrs4SVBemPk3JD9Ap-8clZVe4",
   authDomain: "restaurante-final-7ccf8.firebaseapp.com",

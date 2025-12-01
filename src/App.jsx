@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/reservaciones" element={<Reservaciones />} />
           {/* Page Menú */}
             <Route path="/menu" element={<Menu />} /> {/* ✅ Nuevo */}
-          {/* ✅ Solo el ADMIN puede acceder */}
+          {/*  Solo el ADMIN puede acceder */}
           {user?.rol === 'admin' && (
             <Route path="/reservaciones-hechas" element={<ReservacionesHechas />} />
           )}

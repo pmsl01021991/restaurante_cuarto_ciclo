@@ -11,7 +11,7 @@ const Menu = () => {
   const [mensaje, setMensaje] = useState('');
   const [mostrarToast, setMostrarToast] = useState(false);
 
-  // 🔹 Obtener platos desde Firestore
+  //  Obtener platos desde Firestore
   useEffect(() => {
     const obtenerPlatos = async () => {
       try {
@@ -32,7 +32,7 @@ const Menu = () => {
     obtenerPlatos();
   }, []);
 
-  // 🔹 Función para elegir un plato
+  //  Función para elegir un plato
   const handleElegirPlato = async (plato) => {
     const user = JSON.parse(localStorage.getItem('user'));
 
