@@ -114,7 +114,9 @@ const Menu = () => {
 
         <ul className="menu-list">
           {menuItems
-            .filter(item => item.categoria === categoria)
+            .filter(
+              item => item.categoria?.toLowerCase().trim() === categoria
+            )
             .map((item, index) => (
             <li key={index} className="menu-item">
               <img src={item.imagen} alt={item.nombre} className="menu-image" />
