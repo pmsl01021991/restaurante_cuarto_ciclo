@@ -93,7 +93,7 @@ const Menu = () => {
             className={categoria === "comidas" ? "categoria-activa" : ""}
             onClick={() => setCategoria("comidas")}
           >
-            🍔 Comidas Tipicas
+            🍔 Comidas
           </button>
 
           <button
