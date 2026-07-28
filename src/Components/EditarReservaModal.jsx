@@ -7,6 +7,7 @@ const EditarReservaModal = ({ reserva, onClose, onGuardar, onEliminar }) => {
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
   const [cliente, setCliente] = useState('');
+  const [numero, setNumero] = useState('');
   const [plato, setPlato] = useState('');
 
   // Lista de horarios permitidos
@@ -24,12 +25,13 @@ const EditarReservaModal = ({ reserva, onClose, onGuardar, onEliminar }) => {
       setFecha(reserva.fecha || '');
       setHora(reserva.hora || '');
       setCliente(reserva.cliente || '');
+      setNumero(reserva.numero || '');
       setPlato(reserva.plato || '');
     }
   }, [reserva]);
 
   const handleGuardar = () => {
-    const reservaActualizada = { mesa, comensales, fecha, hora, cliente, plato };
+    const reservaActualizada = { mesa, comensales, fecha, hora, cliente, numero, plato };
     onGuardar(reservaActualizada);
   };
 
@@ -93,6 +95,15 @@ const EditarReservaModal = ({ reserva, onClose, onGuardar, onEliminar }) => {
           type="text"
           value={cliente}
           onChange={(e) => setCliente(e.target.value)}
+        />
+
+        {/* telefono */}
+
+        <label>Teléfono</label>
+        <input
+          type="text"
+          value={numero}
+          onChange={(e) => setNumero(e.target.value)}
         />
 
         {/* Plato */}

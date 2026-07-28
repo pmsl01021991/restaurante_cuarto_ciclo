@@ -8,6 +8,7 @@ import { db } from "../firebase";   // <-- este es tu Firestore REAL
 
 const Menu = () => {
   const [menuItems, setMenuItems] = useState([]);
+  const [categoria, setCategoria] = useState("comidas");
   const [mensaje, setMensaje] = useState('');
   const [mostrarToast, setMostrarToast] = useState(false);
 
@@ -86,8 +87,35 @@ const Menu = () => {
           Descubre nuestros platos más populares, preparados con ingredientes frescos y técnicas tradicionales
         </p>
 
+        <div className="menu-categorias">
+
+          <button
+            className={categoria === "comidas" ? "categoria-activa" : ""}
+            onClick={() => setCategoria("comidas")}
+          >
+            🍔 Comidas
+          </button>
+
+          <button
+            className={categoria === "bebidas" ? "categoria-activa" : ""}
+            onClick={() => setCategoria("bebidas")}
+          >
+            🥤 Bebidas
+          </button>
+
+          <button
+            className={categoria === "postres" ? "categoria-activa" : ""}
+            onClick={() => setCategoria("postres")}
+          >
+            🍰 Postres
+          </button>
+
+        </div>
+
         <ul className="menu-list">
-          {menuItems.map((item, index) => (
+          {menuItems
+            .filter(item => item.categoria === categoria)
+            .map((item, index) => (
             <li key={index} className="menu-item">
               <img src={item.imagen} alt={item.nombre} className="menu-image" />
               <h3>{item.nombre}</h3>
