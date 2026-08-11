@@ -3,14 +3,16 @@ import Container from './Container';
 import { useState, useEffect } from 'react';
 
 // Firestore
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";   // <-- este es tu Firestore REAL
+import { comprimirImagen } from "../utils/imagenUtils";
 
 const Menu = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [categoria, setCategoria] = useState("comidas");
   const [mensaje, setMensaje] = useState('');
   const [mostrarToast, setMostrarToast] = useState(false);
+  const user = JSON.parse(localStorage.getItem('user'));
 
   //  Obtener platos desde Firestore
   useEffect(() => {
@@ -54,7 +56,7 @@ const Menu = () => {
       nombre: plato.nombre,
       precio: plato.precio,
       categoria: plato.categoria,
-      imagen: plato.imagen,
+      imagen: plato.imagenBase64 || plato.imagen,
       usuario: usuarioID,
       fecha: new Date()
     };
@@ -76,6 +78,68 @@ const Menu = () => {
       console.error('Error guardando plato en Firestore:', error);
       alert('No se pudo guardar el plato. Intenta de nuevo.');
     }
+  };
+
+  const editarImagen = async (plato) => {
+
+    const input = document.createElement("input");
+
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = async (evento) => {
+
+      const archivo = evento.target.files?.[0];
+
+      if (!archivo) return;
+
+      try {
+
+        const base64 = await comprimirImagen(
+          archivo
+        );
+
+        await updateDoc(
+          doc(db, "platos", plato.id),
+          {
+            imagenBase64: base64
+          }
+        );
+
+        setMenuItems((actuales) =>
+          actuales.map((item) =>
+            item.id === plato.id
+              ? { ...item, imagenBase64: base64 }
+              : item
+          )
+        );
+
+        setMensaje(
+          `🖼️ Imagen de ${plato.nombre} actualizada`
+        );
+
+        setMostrarToast(true);
+
+        setTimeout(
+          () => setMostrarToast(false),
+          3000
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error actualizando imagen:",
+          error
+        );
+
+        alert(
+          "No se pudo actualizar la imagen."
+        );
+
+      }
+    };
+
+    input.click();
   };
 
 
@@ -119,10 +183,23 @@ const Menu = () => {
             )
             .map((item, index) => (
             <li key={index} className="menu-item">
-              <img src={item.imagen} alt={item.nombre} className="menu-image" />
+              <img
+                src={item.imagenBase64 || item.imagen}
+                alt={item.nombre}
+                className="menu-image"
+              />
               <h3>{item.nombre}</h3>
               <p>{item.descripcion}</p>
               <span>{item.precio}</span>
+
+              {user?.rol === "admin" && (
+                <button
+                  className="edit-image-button"
+                  onClick={() => editarImagen(item)}
+                >
+                  🖼️ Editar imagen
+                </button>
+              )}
 
               <button
                 className="add-button"
